@@ -1,0 +1,17 @@
+---
+title: Fugue Auth
+---
+
+<fugue-auth></fugue-auth>
+
+<!-- 2. Configure SystemJS -->
+<script>
+System.config({
+  transpiler: 'typescript',
+  typescriptOptions: { emitDecoratorMetadata: true },
+  packages: {'src': {defaultExtension: 'ts'}},
+  baseUrl: '/fugue/auth/'
+});
+
+ System.import('/fugue/auth/js/main.ts') .then(null, console.error.bind(console));
+</script>
