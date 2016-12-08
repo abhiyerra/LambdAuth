@@ -31,7 +31,7 @@ function getUser(email, fn) {
 
 function storeLostToken(email, fn) {
 	// Bytesize
-	var len = 128;
+	var len = config.CRYPTO_BYTE_SIZE;
 	crypto.randomBytes(len, function(err, token) {
 		if (err) return fn(err);
 		token = token.toString('hex');
@@ -60,7 +60,8 @@ function storeLostToken(email, fn) {
 
 function sendLostPasswordEmail(email, token, fn) {
 	var subject = 'Password Lost for ' + config.EXTERNAL_NAME;
-	var lostLink = config.RESET_PAGE + '?email=' + email + '&lost=' + token;
+	var lostLink = config.RESET_PAGE + '?email=' + encodeURIComponent(email) + '&lost=' + token;
+
 	ses.sendEmail({
 		Source: config.EMAIL_SOURCE,
 		Destination: {
